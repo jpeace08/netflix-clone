@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import {connect} from 'react-redux';
 import { Form } from '../components';
 import { HeaderContainer, FooterContainer } from "../containers";
-import {SIGN_UP} from '../constants/routes';
+import * as ROUTES from '../constants/routes';
 
-export default function Signin() {
+function Signin({ signin }) {
+    const history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -12,6 +15,18 @@ export default function Signin() {
 
     const handleSignin = e => {
         e.preventDefault();
+
+        //firebase worke here!
+        signin({ email, password })
+            .then((data) => {
+                console.log(data);
+                history.push(ROUTES.BROWSE);
+            })
+            .catch(error => {
+                setError(error.message);
+                setEmail('');
+                setPassword('');
+            });
     }
 
     return (
@@ -42,7 +57,7 @@ export default function Signin() {
                         </Form.Submit>
                     </Form.Base>
                     <Form.Text>
-                        New to Netflix? <Form.Link to={SIGN_UP}>Sign up now.</Form.Link>
+                        New to Netflix? <Form.Link to={ROUTES.SIGN_UP}>Sign up now.</Form.Link>
                     </Form.Text>
                     <Form.TextSmall>
                         This page is protected by Google reCAPCHA to ensure you're not a bot. Learn more.
@@ -53,3 +68,17 @@ export default function Signin() {
         </>
     );
 };
+
+const mapState = ({ auth }) => {
+    return {
+
+    }
+}
+
+const mapDispatch = dispatch => {
+    return {
+        signin: dispatch.auth.signin,
+    }
+}
+
+export default connect(mapState, mapDispatch)(Signin);
