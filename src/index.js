@@ -7,8 +7,6 @@ import reportWebVitals from './reportWebVitals';
 import { GlobalStyles } from './global-styles';
 import { firebase } from './lib/firebase.prod';
 
-console.log(FirebaseContext);
-
 render(
     <>
         <FirebaseContext.Provider value={{ firebase }}>

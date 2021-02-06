@@ -9,8 +9,8 @@ export default function App() {
 			<Switch>
 				<Route exact path={ROUTES.HOME} component={Home} />
 				<Route exact path={ROUTES.BROWSE} component={Browse} />
-				<Route exact path={ROUTES.SIGN_UP} component={Signin} />
-				<Route exact path={ROUTES.SIGN_IN} component={Signup} />
+				<Route exact path={ROUTES.SIGN_UP} component={Signup} />
+				<Route exact path={ROUTES.SIGN_IN} component={Signin} />
 			</Switch>
 		</Router>
 	);
