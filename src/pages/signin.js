@@ -5,7 +5,7 @@ import { Form } from '../components';
 import { HeaderContainer, FooterContainer } from "../containers";
 import * as ROUTES from '../constants/routes';
 
-function Signin({ signin }) {
+function Signin({ loading, signin }) {
     const history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -18,8 +18,7 @@ function Signin({ signin }) {
 
         //firebase worke here!
         signin({ email, password })
-            .then((data) => {
-                console.log(data);
+            .then((user) => {
                 history.push(ROUTES.BROWSE);
             })
             .catch(error => {
@@ -38,6 +37,9 @@ function Signin({ signin }) {
                         <Form.Error>
                             {error}
                         </Form.Error>
+                    )}
+                    {loading && (
+                        <Form.TextSmall>Loading...</Form.TextSmall>
                     )}
                     <Form.Base onSubmit={handleSignin} method="POST">
                         <Form.Input
@@ -71,7 +73,7 @@ function Signin({ signin }) {
 
 const mapState = ({ auth }) => {
     return {
-
+        loading: auth.loading,
     }
 }
 
