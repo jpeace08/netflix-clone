@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 export const Container = styled.div`
     display: flex;
@@ -23,6 +23,7 @@ export const SubTitle = styled.h2`
     font-size: 26px;
     font-weight: normal;
     margin: 16px auto;
+    text-align: center;
 
     @media (max-width: 600px) {
         font-size: 18px;

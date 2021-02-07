@@ -2,7 +2,7 @@ import { firebase } from '../lib/firebase.prod';
 
 const auth = {
     state: {
-        user: {},
+        user: null,
         loading: false,
         error: null,
     },
@@ -14,7 +14,11 @@ const auth = {
         setError: (state, payload) => ({
             ...state,
             error: payload,
-        })
+        }),
+        setUser: (state, payload) => ({
+            ...state,
+            user: payload,
+        }),
     },
     effects: (dispatch) => ({
         signin: ({ email, password }) => {
@@ -24,7 +28,11 @@ const auth = {
                     .auth()
                     .signInWithEmailAndPassword(email, password)
                     .then(({user}) => {
-                        resolve(user);
+                        user.updateProfile({
+                            displayName: email,
+                            photoURL: Math.floor(Math.random() * 5) + 1,
+                        })
+                            .then(() => { resolve(user) })
                     }).catch(error => {
                         reject(error);
                     })
@@ -37,7 +45,11 @@ const auth = {
                 dispatch.auth.setLoading(true);
                 firebase.auth().createUserWithEmailAndPassword(email, password)
                     .then(({ user }) => {
-                        resolve(user);
+                        user.updateProfile({
+                            displayName: name,
+                            photoURL: Math.floor(Math.random() * 5) + 1,
+                        })
+                        .then(() => {resolve(user)})
                     })
                     .catch(error => {
                         reject(error);

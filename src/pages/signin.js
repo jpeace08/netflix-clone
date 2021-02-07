@@ -18,7 +18,13 @@ function Signin({ loading, signin }) {
 
         //firebase worke here!
         signin({ email, password })
-            .then((user) => {
+            .then(user => {
+                user.updateProfile({
+                    displayName: email,
+                    photoURL: Math.floor(Math.random() * 5) + 1,
+                })
+            })
+            .then(() => {
                 history.push(ROUTES.BROWSE);
             })
             .catch(error => {

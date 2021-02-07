@@ -21,14 +21,7 @@ function Signup({loading, signup}) {
         //firebase work here!
         if (!isInValid) {
             signup({name, email, password, confirmPassword})
-                .then(user => { 
-                    console.log(user);
-                    user.updateProfile({
-                        displayName: name,
-                        photoURL: Math.floor(Math.random() * 5) + 1,
-                    })
-                })
-                .then(() => {
+                .then((user) => {
                     history.push(ROUTES.BROWSE);
                 })
                 .catch(error => { 
