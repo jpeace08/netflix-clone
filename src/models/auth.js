@@ -27,7 +27,7 @@ const auth = {
                 firebase
                     .auth()
                     .signInWithEmailAndPassword(email, password)
-                    .then(({user}) => {
+                    .then(({ user }) => {
                         user.updateProfile({
                             displayName: email,
                             photoURL: Math.floor(Math.random() * 5) + 1,
@@ -58,6 +58,11 @@ const auth = {
                         dispatch.auth.setLoading(false);
                     });
             })
+        },
+        signout: () => {
+            firebase.auth().signOut()
+                .then(() => { dispatch.auth.setUser(null) })
+                .catch(err => {console.log(err.message);});
         }
     })
 }

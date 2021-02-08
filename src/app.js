@@ -5,13 +5,12 @@ import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import {Home, Browse, Signin, Signup} from './pages';
 import * as ROUTES from './constants/routes';
 import { IsUserRedirect, ProtectedRoute } from './helpers/routes';
+// import useAuthListener from './hooks/use-auth-listener';
 
 function App({ user, setUser }) {
-	console.log(user);
 	useEffect(() => {
 		const lisener = firebase.auth().onAuthStateChanged(userInfo => {
 			if (userInfo) {
-				console.log(userInfo);
 				setUser(userInfo);
 			}
 			else {
@@ -22,7 +21,9 @@ function App({ user, setUser }) {
 			lisener();
 		}
 	}, [setUser]);
-	
+
+	// const { userAuth } = useAuthListener();
+
 	return (
 		<Router>
 			<Switch>
