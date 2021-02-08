@@ -7,6 +7,7 @@ import * as ROUTES from '../constants/routes';
 function BrowseContainer({ user, slides, signout }) {
     const [profile, setProfile] = useState({});
     const [loading, setLoading] = useState(true);
+    const [searchTerm, setSearchTerm] = useState('');
     const { series, films } = slides;
     console.log(profile);
     useEffect(() => {
@@ -36,6 +37,7 @@ function BrowseContainer({ user, slides, signout }) {
                             <Header.TextLink>Films</Header.TextLink>
                         </Header.Group>
                         <Header.Group>
+                            <Header.Search searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>  
                             <Header.Profile>
                                 <Header.Picture src={profile.photo}  />
                                 <Header.Dropdown>
@@ -59,6 +61,7 @@ function BrowseContainer({ user, slides, signout }) {
                         <Header.Text>
                             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nemo doloribus excepturi omnis nam tempora ipsam quia! Voluptatem dolorem consequuntur iure dolores enim, magnam, odio aut quisquam possimus quis placeat impedit?
                         </Header.Text>
+                        <Header.PlayButton>Play</Header.PlayButton>
                     </Header.Feature>
                 </Header>
             )) : (
